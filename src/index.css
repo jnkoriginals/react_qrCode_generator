@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.col-header:first-of-type {
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+/* Targeting WebKit browsers (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+    appearance: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Targeting Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

@@ -1,0 +1,43 @@
+/* Dark Mode */
+html.dark .w-color-editable-input {
+    --editable-input-label-color: rgb(250, 250, 250) !important;
+    --editable-input-box-shadow: rgb(64, 64, 64) 0px 0px 0px 1px inset !important;
+    --editable-input-color: rgb(250, 250, 250) !important;
+}
+
+html.dark .w-color-github {
+    --github-box-shadow: none !important;
+    --github-border: 0px solid rgba(0, 0, 0, 0) !important;
+    --github-background-color: rgb(38, 38, 38) !important;
+    --github-arrow-border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+html.dark .w-color-alpha {
+    --alpha-background-color: rgba(23, 23, 23, 0%) !important;
+}
+
+html.dark .w-color-interactive .w-color- {
+    --interactive-border-radius: 10px !important;
+}
+
+/* Light Mode (Default) */
+html .w-color-editable-input {
+    --editable-input-label-color: rgb(10, 10, 10) !important;
+    --editable-input-box-shadow: rgb(245, 245, 245) 0px 0px 0px 1px inset !important;
+    --editable-input-color: rgb(10, 10, 10) !important;
+}
+
+html .w-color-github {
+    --github-box-shadow: none !important;
+    --github-border: 0px solid rgba(0, 0, 0, 0) !important;
+    --github-background-color: rgb(245, 245, 245) !important;
+    --github-arrow-border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+html .w-color-alpha {
+    --alpha-background-color: rgba(245, 245, 245, 0%) !important;
+}
+
+html .w-color-interactive .w-color- {
+    --interactive-border-radius: 10px !important;
+}
