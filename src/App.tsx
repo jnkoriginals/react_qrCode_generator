@@ -12,6 +12,7 @@ import { Input } from "./components/Input";
 import { Slider } from "./components/Slider";
 import { FileUpload } from "./components/FileUpload";
 import { ResizableTextBox } from "./components/ResizableTextBox";
+import { Footer } from "./components/Footer";
 
 enum QRStyle {
     SQUARES = "squares",
@@ -176,153 +177,16 @@ END:VCARD`;
 
     return (
         <>
-            <ContentWrapper>
-                <div className='flex items-center gap-4 justify-between w-full pb-6 pt-3 border-b border-neutral-400'>
-                    <div className=' flex gap-4 items-center'>
-                        <h1 className='flex text-3xl font-semibold items-center'>
-                            QR Generate
-                        </h1>
-                        <Dropdown
-                            dropUp={false}
-                            trigger={
-                                <Button
-                                    onClick={() => {}}
-                                    className={
-                                        "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-lg text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
-                                    }
-                                >
-                                    Content type: {contentOption}
-                                </Button>
-                            }
-                        >
-                            <Dropdown.Item
-                                className='cursor-pointer'
-                                onClick={() =>
-                                    handleContentOption(ContentOptions.URL)
-                                }
-                            >
-                                Url
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                className='cursor-pointer'
-                                onClick={() =>
-                                    handleContentOption(ContentOptions.TEXT)
-                                }
-                            >
-                                Text
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                className='cursor-pointer'
-                                onClick={() =>
-                                    handleContentOption(
-                                        ContentOptions.PHONE_NBR
-                                    )
-                                }
-                            >
-                                Phone Number
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                className='cursor-pointer'
-                                onClick={() =>
-                                    handleContentOption(ContentOptions.VCARD)
-                                }
-                            >
-                                VCard
-                            </Dropdown.Item>
-                        </Dropdown>
-                    </div>
-                    <ThemeToggle />
-                </div>
-                <div className='flex lg:flex-row flex-col mt-6 gap-4'>
-                    <div className='flex flex-col w-full lg:w-7/12'>
-                        <Collapsable title='Content' open>
-                            {contentOption === ContentOptions.URL && (
-                                <TextField
-                                    onChange={(e) => {
-                                        setQrContent(e.target.value);
-                                    }}
-                                    label='URL'
-                                    id='url'
-                                    placeholder='Enter URL ...'
-                                />
-                            )}
-                            {contentOption === ContentOptions.TEXT && (
-                                <ResizableTextBox
-                                    onChange={(e) => {
-                                        setQrContent(e.target.value);
-                                    }}
-                                    placeholder='Enter text content ...'
-                                    label='Text'
-                                />
-                            )}
-                            {contentOption === ContentOptions.PHONE_NBR && (
-                                <TextField
-                                    onChange={(e) => {
-                                        setQrContent(e.target.value);
-                                    }}
-                                    type='tel'
-                                    label='Phone Number'
-                                    id='phone_nbr'
-                                    placeholder='Enter Phone Number ...'
-                                />
-                            )}
-                            {contentOption === ContentOptions.VCARD && (
-                                <form
-                                    onSubmit={handleSubmit}
-                                    className='space-y-4'
-                                >
-                                    <TextField
-                                        label='First Name'
-                                        name='firstName'
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Last Name'
-                                        name='lastName'
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Phone'
-                                        name='phone'
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Email'
-                                        name='email'
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Address'
-                                        name='address'
-                                        value={formData.address}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Organization'
-                                        name='organization'
-                                        value={formData.organization}
-                                        onChange={handleChange}
-                                    />
-                                    <TextField
-                                        label='Title'
-                                        name='title'
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                    />
-                                    <Button type='submit' onClick={() => {}}>
-                                        Generate VCard QR Code
-                                    </Button>
-                                </form>
-                            )}
-                        </Collapsable>
-                        <Collapsable title='Colors'>
-                            <div className='flex flex-wrap gap-2'>
+            <div className='flex flex-col min-h-screen'>
+                <div className='flex flex-1'>
+                    <ContentWrapper>
+                        <div className='flex items-center gap-4 justify-between w-full pb-6 pt-3 border-b border-neutral-400'>
+                            <div className=' flex gap-4 items-center'>
+                                <h1 className='flex text-3xl font-semibold items-center'>
+                                    QR Generate
+                                </h1>
                                 <Dropdown
-                                    dropUp={true}
+                                    dropUp={false}
                                     trigger={
                                         <Button
                                             onClick={() => {}}
@@ -330,377 +194,568 @@ END:VCARD`;
                                                 "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-lg text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
                                             }
                                         >
-                                            <div className='flex align-middle items-center gap-2 '>
-                                                <div
-                                                    style={{
-                                                        background: qrCodeColor,
-                                                    }}
-                                                    className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
-                                                ></div>
-                                                QR Code Color
-                                            </div>
+                                            Content type: {contentOption}
                                         </Button>
                                     }
                                 >
-                                    <Dropdown.Item>
-                                        <Chrome
-                                            color={qrCodeColor}
-                                            showAlpha={false}
-                                            onChange={(color) => {
-                                                setQrCodeColor(color.hex);
-                                            }}
-                                            inputType={ChromeInputType.HEXA}
-                                        />
-                                    </Dropdown.Item>
-                                </Dropdown>
-
-                                <Dropdown
-                                    dropUp={true}
-                                    trigger={
-                                        <Button
-                                            onClick={() => {}}
-                                            className={
-                                                "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-md text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
-                                            }
-                                        >
-                                            <div className='flex align-middle items-center gap-2 '>
-                                                <div
-                                                    style={{
-                                                        background: qrBgColor,
-                                                    }}
-                                                    className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
-                                                ></div>
-                                                Background Color
-                                            </div>
-                                        </Button>
-                                    }
-                                >
-                                    <Dropdown.Item>
-                                        <Chrome
-                                            color={qrBgColor}
-                                            showAlpha={false}
-                                            onChange={(color) => {
-                                                setQrBgColor(color.hex);
-                                            }}
-                                            inputType={ChromeInputType.HEXA}
-                                        />
-                                    </Dropdown.Item>
-                                </Dropdown>
-                            </div>
-                            <div className='flex items-center gap-4 mt-4'>
-                                <div>
-                                    <Dropdown
-                                        dropUp={true}
-                                        trigger={
-                                            <Button
-                                                onClick={() => {}}
-                                                className={
-                                                    "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-md text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
-                                                }
-                                            >
-                                                <div className='flex align-middle items-center gap-2 '>
-                                                    <div
-                                                        style={{
-                                                            background:
-                                                                customEyeColor,
-                                                        }}
-                                                        className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
-                                                    ></div>
-                                                    Custom Eye Color
-                                                </div>
-                                            </Button>
+                                    <Dropdown.Item
+                                        className='cursor-pointer'
+                                        onClick={() =>
+                                            handleContentOption(
+                                                ContentOptions.URL
+                                            )
                                         }
                                     >
-                                        <Dropdown.Item>
-                                            <Chrome
-                                                color={customEyeColor}
-                                                showAlpha={false}
-                                                onChange={(color) => {
-                                                    setCustomEyeColor(
-                                                        color.hex
+                                        Url
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        className='cursor-pointer'
+                                        onClick={() =>
+                                            handleContentOption(
+                                                ContentOptions.TEXT
+                                            )
+                                        }
+                                    >
+                                        Text
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        className='cursor-pointer'
+                                        onClick={() =>
+                                            handleContentOption(
+                                                ContentOptions.PHONE_NBR
+                                            )
+                                        }
+                                    >
+                                        Phone Number
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        className='cursor-pointer'
+                                        onClick={() =>
+                                            handleContentOption(
+                                                ContentOptions.VCARD
+                                            )
+                                        }
+                                    >
+                                        VCard
+                                    </Dropdown.Item>
+                                </Dropdown>
+                            </div>
+                            <ThemeToggle />
+                        </div>
+                        <div className='flex lg:flex-row flex-col mt-6 gap-4'>
+                            <div className='flex flex-col w-full lg:w-7/12'>
+                                <Collapsable title='Content' open>
+                                    {contentOption === ContentOptions.URL && (
+                                        <TextField
+                                            onChange={(e) => {
+                                                setQrContent(e.target.value);
+                                            }}
+                                            label='URL'
+                                            id='url'
+                                            placeholder='Enter URL ...'
+                                        />
+                                    )}
+                                    {contentOption === ContentOptions.TEXT && (
+                                        <ResizableTextBox
+                                            onChange={(e) => {
+                                                setQrContent(e.target.value);
+                                            }}
+                                            placeholder='Enter text content ...'
+                                            label='Text'
+                                        />
+                                    )}
+                                    {contentOption ===
+                                        ContentOptions.PHONE_NBR && (
+                                        <TextField
+                                            onChange={(e) => {
+                                                setQrContent(e.target.value);
+                                            }}
+                                            type='tel'
+                                            label='Phone Number'
+                                            id='phone_nbr'
+                                            placeholder='Enter Phone Number ...'
+                                        />
+                                    )}
+                                    {contentOption === ContentOptions.VCARD && (
+                                        <form
+                                            onSubmit={handleSubmit}
+                                            className='space-y-4'
+                                        >
+                                            <TextField
+                                                label='First Name'
+                                                name='firstName'
+                                                value={formData.firstName}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Last Name'
+                                                name='lastName'
+                                                value={formData.lastName}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Phone'
+                                                name='phone'
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Email'
+                                                name='email'
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Address'
+                                                name='address'
+                                                value={formData.address}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Organization'
+                                                name='organization'
+                                                value={formData.organization}
+                                                onChange={handleChange}
+                                            />
+                                            <TextField
+                                                label='Title'
+                                                name='title'
+                                                value={formData.title}
+                                                onChange={handleChange}
+                                            />
+                                            <Button
+                                                type='submit'
+                                                onClick={() => {}}
+                                            >
+                                                Generate VCard QR Code
+                                            </Button>
+                                        </form>
+                                    )}
+                                </Collapsable>
+                                <Collapsable title='Colors'>
+                                    <div className='flex flex-wrap gap-2'>
+                                        <Dropdown
+                                            dropUp={true}
+                                            trigger={
+                                                <Button
+                                                    onClick={() => {}}
+                                                    className={
+                                                        "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-lg text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    }
+                                                >
+                                                    <div className='flex align-middle items-center gap-2 '>
+                                                        <div
+                                                            style={{
+                                                                background:
+                                                                    qrCodeColor,
+                                                            }}
+                                                            className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
+                                                        ></div>
+                                                        QR Code Color
+                                                    </div>
+                                                </Button>
+                                            }
+                                        >
+                                            <Dropdown.Item>
+                                                <Chrome
+                                                    color={qrCodeColor}
+                                                    showAlpha={false}
+                                                    onChange={(color) => {
+                                                        setQrCodeColor(
+                                                            color.hex
+                                                        );
+                                                    }}
+                                                    inputType={
+                                                        ChromeInputType.HEXA
+                                                    }
+                                                />
+                                            </Dropdown.Item>
+                                        </Dropdown>
+
+                                        <Dropdown
+                                            dropUp={true}
+                                            trigger={
+                                                <Button
+                                                    onClick={() => {}}
+                                                    className={
+                                                        "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-md text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    }
+                                                >
+                                                    <div className='flex align-middle items-center gap-2 '>
+                                                        <div
+                                                            style={{
+                                                                background:
+                                                                    qrBgColor,
+                                                            }}
+                                                            className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
+                                                        ></div>
+                                                        Background Color
+                                                    </div>
+                                                </Button>
+                                            }
+                                        >
+                                            <Dropdown.Item>
+                                                <Chrome
+                                                    color={qrBgColor}
+                                                    showAlpha={false}
+                                                    onChange={(color) => {
+                                                        setQrBgColor(color.hex);
+                                                    }}
+                                                    inputType={
+                                                        ChromeInputType.HEXA
+                                                    }
+                                                />
+                                            </Dropdown.Item>
+                                        </Dropdown>
+                                    </div>
+                                    <div className='flex items-center gap-4 mt-4'>
+                                        <div>
+                                            <Dropdown
+                                                dropUp={true}
+                                                trigger={
+                                                    <Button
+                                                        onClick={() => {}}
+                                                        className={
+                                                            "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-md text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        }
+                                                    >
+                                                        <div className='flex align-middle items-center gap-2 '>
+                                                            <div
+                                                                style={{
+                                                                    background:
+                                                                        customEyeColor,
+                                                                }}
+                                                                className='w-6 h-4 inline-block rounded-sm outline outline-1 outline-neutral-100 dark:outline-neutral-700'
+                                                            ></div>
+                                                            Custom Eye Color
+                                                        </div>
+                                                    </Button>
+                                                }
+                                            >
+                                                <Dropdown.Item>
+                                                    <Chrome
+                                                        color={customEyeColor}
+                                                        showAlpha={false}
+                                                        onChange={(color) => {
+                                                            setCustomEyeColor(
+                                                                color.hex
+                                                            );
+                                                        }}
+                                                        inputType={
+                                                            ChromeInputType.HEXA
+                                                        }
+                                                    />
+                                                </Dropdown.Item>
+                                            </Dropdown>
+                                        </div>
+                                        <div>
+                                            <Input
+                                                id='customEyeColor'
+                                                name='customEyeColor'
+                                                type='checkbox'
+                                                label='Use custom eye color'
+                                                checked={useCustomEyeColor}
+                                                onChange={() => {
+                                                    setUseCustomEyeColor(
+                                                        (prev) => !prev
                                                     );
                                                 }}
-                                                inputType={ChromeInputType.HEXA}
                                             />
-                                        </Dropdown.Item>
-                                    </Dropdown>
-                                </div>
-                                <div>
-                                    <Input
-                                        id='customEyeColor'
-                                        name='customEyeColor'
-                                        type='checkbox'
-                                        label='Use custom eye color'
-                                        checked={useCustomEyeColor}
-                                        onChange={() => {
-                                            setUseCustomEyeColor(
-                                                (prev) => !prev
-                                            );
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </Collapsable>
-                        <Collapsable title='Center Image'>
-                            <div className='flex flex-col gap-4'>
-                                <p>Upload center image</p>
-                                <FileUpload
-                                    id='fileUpload'
-                                    name='file'
-                                    onChange={handleFileChange}
-                                />
-                                {imageError && (
-                                    <div className='mt-4 text-red-500 dark:text-red-400'>
-                                        <strong>Error:</strong> {imageError}
+                                        </div>
                                     </div>
-                                )}
-                                <p>Image Width</p>
-                                <Slider
-                                    min={0}
-                                    max={120}
-                                    step={1}
-                                    value={imageWidth}
-                                    onChange={setImageWidth}
-                                />
-                                <p>Image Height</p>
-                                <Slider
-                                    min={0}
-                                    max={120}
-                                    step={1}
-                                    value={imageHeight}
-                                    onChange={setImageHeight}
-                                />
-                                <Input
-                                    id='customImageHeight'
-                                    name='customImageHeight'
-                                    type='checkbox'
-                                    label='Use custom image height'
-                                    checked={useCustomImageHeight}
-                                    onChange={() => {
-                                        setUseCustomImageHeight(
-                                            (prev) => !prev
-                                        );
-                                    }}
-                                />
-                                <Input
-                                    id='removeQrBehindImage'
-                                    name='removeQrBehindImage'
-                                    type='checkbox'
-                                    label='Remove QR Code behind Image'
-                                    checked={removeQrBehindImage}
-                                    onChange={() => {
-                                        setRemoveQrBehindImage((prev) => !prev);
-                                    }}
-                                />
-                                <p>Image Padding</p>
-                                <Slider
-                                    min={0}
-                                    max={25}
-                                    step={1}
-                                    value={imagePadding}
-                                    onChange={setImagePadding}
-                                />
-                                <p>Image Opacity</p>
-                                <Slider
-                                    min={0}
-                                    max={1}
-                                    step={0.1}
-                                    value={imageOpacity}
-                                    onChange={setImageOpacity}
-                                />
-                                <p>Image Padding Style</p>
-                                <div className='flex gap-2'>
-                                    <Input
-                                        id='square'
-                                        name='square'
-                                        type='radio'
-                                        label='Square'
-                                        checked={
-                                            imagePaddingStyle ===
-                                            ImagePaddingStyle.SQUARE
+                                </Collapsable>
+                                <Collapsable title='Center Image'>
+                                    <div className='flex flex-col gap-4'>
+                                        <p>Upload center image</p>
+                                        <FileUpload
+                                            id='fileUpload'
+                                            name='file'
+                                            onChange={handleFileChange}
+                                        />
+                                        {imageError && (
+                                            <div className='mt-4 text-red-500 dark:text-red-400'>
+                                                <strong>Error:</strong>{" "}
+                                                {imageError}
+                                            </div>
+                                        )}
+                                        <p>Image Width</p>
+                                        <Slider
+                                            min={0}
+                                            max={120}
+                                            step={1}
+                                            value={imageWidth}
+                                            onChange={setImageWidth}
+                                        />
+                                        <p>Image Height</p>
+                                        <Slider
+                                            min={0}
+                                            max={120}
+                                            step={1}
+                                            value={imageHeight}
+                                            onChange={setImageHeight}
+                                        />
+                                        <Input
+                                            id='customImageHeight'
+                                            name='customImageHeight'
+                                            type='checkbox'
+                                            label='Use custom image height'
+                                            checked={useCustomImageHeight}
+                                            onChange={() => {
+                                                setUseCustomImageHeight(
+                                                    (prev) => !prev
+                                                );
+                                            }}
+                                        />
+                                        <Input
+                                            id='removeQrBehindImage'
+                                            name='removeQrBehindImage'
+                                            type='checkbox'
+                                            label='Remove QR Code behind Image'
+                                            checked={removeQrBehindImage}
+                                            onChange={() => {
+                                                setRemoveQrBehindImage(
+                                                    (prev) => !prev
+                                                );
+                                            }}
+                                        />
+                                        <p>Image Padding</p>
+                                        <Slider
+                                            min={0}
+                                            max={25}
+                                            step={1}
+                                            value={imagePadding}
+                                            onChange={setImagePadding}
+                                        />
+                                        <p>Image Opacity</p>
+                                        <Slider
+                                            min={0}
+                                            max={1}
+                                            step={0.1}
+                                            value={imageOpacity}
+                                            onChange={setImageOpacity}
+                                        />
+                                        <p>Image Padding Style</p>
+                                        <div className='flex gap-2'>
+                                            <Input
+                                                id='square'
+                                                name='square'
+                                                type='radio'
+                                                label='Square'
+                                                checked={
+                                                    imagePaddingStyle ===
+                                                    ImagePaddingStyle.SQUARE
+                                                }
+                                                onChange={() =>
+                                                    handleImagePaddingStyleChange(
+                                                        ImagePaddingStyle.SQUARE
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='circle'
+                                                name='circle'
+                                                type='radio'
+                                                label='Circle'
+                                                checked={
+                                                    imagePaddingStyle ===
+                                                    ImagePaddingStyle.CIRCLE
+                                                }
+                                                onChange={() =>
+                                                    handleImagePaddingStyleChange(
+                                                        ImagePaddingStyle.CIRCLE
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                </Collapsable>
+                                <Collapsable title='Advanced'>
+                                    <div className='flex flex-col gap-4'>
+                                        <p>QR Code Style</p>
+                                        <div className='flex gap-2'>
+                                            <Input
+                                                id='squares'
+                                                name='squares'
+                                                type='radio'
+                                                label='Squares'
+                                                checked={
+                                                    qrStyle === QRStyle.SQUARES
+                                                }
+                                                onChange={() =>
+                                                    handleQrStyleChange(
+                                                        QRStyle.SQUARES
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='dots'
+                                                name='dots'
+                                                type='radio'
+                                                label='Dots'
+                                                checked={
+                                                    qrStyle === QRStyle.DOTS
+                                                }
+                                                onChange={() =>
+                                                    handleQrStyleChange(
+                                                        QRStyle.DOTS
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='fluid'
+                                                name='fluid'
+                                                type='radio'
+                                                label='Fluid'
+                                                checked={
+                                                    qrStyle === QRStyle.FLUID
+                                                }
+                                                onChange={() =>
+                                                    handleQrStyleChange(
+                                                        QRStyle.FLUID
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <p>Eye Radius</p>
+                                        <Slider
+                                            min={0}
+                                            max={35}
+                                            step={1}
+                                            value={eyeRadius}
+                                            onChange={setEyeRadius}
+                                        />
+                                        <p>Quiet Zone</p>
+                                        <Slider
+                                            min={5}
+                                            max={25}
+                                            step={1}
+                                            value={quietZone}
+                                            onChange={setQuietZone}
+                                        />
+                                        <p>Error Correction Level</p>
+                                        <div className='flex gap-2 justify-between'>
+                                            <Input
+                                                id='L'
+                                                name='L'
+                                                type='radio'
+                                                label='Low'
+                                                checked={
+                                                    ecLevel ===
+                                                    ErrorCorrectionLevel.L
+                                                }
+                                                onChange={() =>
+                                                    handleEcLevelChange(
+                                                        ErrorCorrectionLevel.L
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='M'
+                                                name='M'
+                                                type='radio'
+                                                label='Medium'
+                                                checked={
+                                                    ecLevel ===
+                                                    ErrorCorrectionLevel.M
+                                                }
+                                                onChange={() =>
+                                                    handleEcLevelChange(
+                                                        ErrorCorrectionLevel.M
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='Q'
+                                                name='Q'
+                                                type='radio'
+                                                label='Quartil'
+                                                checked={
+                                                    ecLevel ===
+                                                    ErrorCorrectionLevel.Q
+                                                }
+                                                onChange={() =>
+                                                    handleEcLevelChange(
+                                                        ErrorCorrectionLevel.Q
+                                                    )
+                                                }
+                                            />
+                                            <Input
+                                                id='H'
+                                                name='H'
+                                                type='radio'
+                                                label='High'
+                                                checked={
+                                                    ecLevel ===
+                                                    ErrorCorrectionLevel.H
+                                                }
+                                                onChange={() =>
+                                                    handleEcLevelChange(
+                                                        ErrorCorrectionLevel.H
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                </Collapsable>
+                            </div>
+                            <div className='w-full lg:w-5/12'>
+                                <div className='p-4 h-min m-auto w-min bg-white rounded-xl'>
+                                    <QRCode
+                                        id='qrCode'
+                                        ref={qrRef}
+                                        logoImage={imageSrc}
+                                        logoWidth={imageWidth}
+                                        logoHeight={
+                                            useCustomImageHeight
+                                                ? imageHeight
+                                                : imageWidth
                                         }
-                                        onChange={() =>
-                                            handleImagePaddingStyleChange(
-                                                ImagePaddingStyle.SQUARE
-                                            )
+                                        removeQrCodeBehindLogo={
+                                            removeQrBehindImage
                                         }
+                                        logoPaddingStyle={imagePaddingStyle}
+                                        logoPadding={imagePadding}
+                                        logoOpacity={imageOpacity}
+                                        quietZone={quietZone}
+                                        eyeRadius={eyeRadius}
+                                        ecLevel={ecLevel}
+                                        qrStyle={qrStyle}
+                                        eyeColor={
+                                            useCustomEyeColor
+                                                ? customEyeColor
+                                                : qrCodeColor
+                                        }
+                                        fgColor={qrCodeColor}
+                                        bgColor={qrBgColor}
+                                        value={qrContent}
+                                        size={qrSize}
+                                        style={{ border: "1px solid black" }}
                                     />
-                                    <Input
-                                        id='circle'
-                                        name='circle'
-                                        type='radio'
-                                        label='Circle'
-                                        checked={
-                                            imagePaddingStyle ===
-                                            ImagePaddingStyle.CIRCLE
-                                        }
-                                        onChange={() =>
-                                            handleImagePaddingStyleChange(
-                                                ImagePaddingStyle.CIRCLE
-                                            )
-                                        }
-                                    />
+                                </div>
+                                <div className='mt-4 w-full flex justify-center gap-2'>
+                                    <Button
+                                        variant='primary'
+                                        onClick={() => {
+                                            exportImage("png");
+                                        }}
+                                    >
+                                        Download as PNG
+                                    </Button>
+                                    <Button
+                                        variant='primary'
+                                        onClick={() => {
+                                            exportImage("jpeg");
+                                        }}
+                                    >
+                                        Download as JPeg
+                                    </Button>
                                 </div>
                             </div>
-                        </Collapsable>
-                        <Collapsable title='Advanced'>
-                            <div className='flex flex-col gap-4'>
-                                <p>QR Code Style</p>
-                                <div className='flex gap-2'>
-                                    <Input
-                                        id='squares'
-                                        name='squares'
-                                        type='radio'
-                                        label='Squares'
-                                        checked={qrStyle === QRStyle.SQUARES}
-                                        onChange={() =>
-                                            handleQrStyleChange(QRStyle.SQUARES)
-                                        }
-                                    />
-                                    <Input
-                                        id='dots'
-                                        name='dots'
-                                        type='radio'
-                                        label='Dots'
-                                        checked={qrStyle === QRStyle.DOTS}
-                                        onChange={() =>
-                                            handleQrStyleChange(QRStyle.DOTS)
-                                        }
-                                    />
-                                    <Input
-                                        id='fluid'
-                                        name='fluid'
-                                        type='radio'
-                                        label='Fluid'
-                                        checked={qrStyle === QRStyle.FLUID}
-                                        onChange={() =>
-                                            handleQrStyleChange(QRStyle.FLUID)
-                                        }
-                                    />
-                                </div>
-                                <p>Eye Radius</p>
-                                <Slider
-                                    min={0}
-                                    max={35}
-                                    step={1}
-                                    value={eyeRadius}
-                                    onChange={setEyeRadius}
-                                />
-                                <p>Quiet Zone</p>
-                                <Slider
-                                    min={5}
-                                    max={25}
-                                    step={1}
-                                    value={quietZone}
-                                    onChange={setQuietZone}
-                                />
-                                <p>Error Correction Level</p>
-                                <div className='flex gap-2 justify-between'>
-                                    <Input
-                                        id='L'
-                                        name='L'
-                                        type='radio'
-                                        label='Low'
-                                        checked={
-                                            ecLevel === ErrorCorrectionLevel.L
-                                        }
-                                        onChange={() =>
-                                            handleEcLevelChange(
-                                                ErrorCorrectionLevel.L
-                                            )
-                                        }
-                                    />
-                                    <Input
-                                        id='M'
-                                        name='M'
-                                        type='radio'
-                                        label='Medium'
-                                        checked={
-                                            ecLevel === ErrorCorrectionLevel.M
-                                        }
-                                        onChange={() =>
-                                            handleEcLevelChange(
-                                                ErrorCorrectionLevel.M
-                                            )
-                                        }
-                                    />
-                                    <Input
-                                        id='Q'
-                                        name='Q'
-                                        type='radio'
-                                        label='Quartil'
-                                        checked={
-                                            ecLevel === ErrorCorrectionLevel.Q
-                                        }
-                                        onChange={() =>
-                                            handleEcLevelChange(
-                                                ErrorCorrectionLevel.Q
-                                            )
-                                        }
-                                    />
-                                    <Input
-                                        id='H'
-                                        name='H'
-                                        type='radio'
-                                        label='High'
-                                        checked={
-                                            ecLevel === ErrorCorrectionLevel.H
-                                        }
-                                        onChange={() =>
-                                            handleEcLevelChange(
-                                                ErrorCorrectionLevel.H
-                                            )
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        </Collapsable>
-                    </div>
-                    <div className='w-full lg:w-5/12'>
-                        <div className='p-4 h-min m-auto w-min bg-white rounded-xl'>
-                            <QRCode
-                                id='qrCode'
-                                ref={qrRef}
-                                logoImage={imageSrc}
-                                logoWidth={imageWidth}
-                                logoHeight={
-                                    useCustomImageHeight
-                                        ? imageHeight
-                                        : imageWidth
-                                }
-                                removeQrCodeBehindLogo={removeQrBehindImage}
-                                logoPaddingStyle={imagePaddingStyle}
-                                logoPadding={imagePadding}
-                                logoOpacity={imageOpacity}
-                                quietZone={quietZone}
-                                eyeRadius={eyeRadius}
-                                ecLevel={ecLevel}
-                                qrStyle={qrStyle}
-                                eyeColor={
-                                    useCustomEyeColor
-                                        ? customEyeColor
-                                        : qrCodeColor
-                                }
-                                fgColor={qrCodeColor}
-                                bgColor={qrBgColor}
-                                value={qrContent}
-                                size={qrSize}
-                                style={{ border: "1px solid black" }}
-                            />
                         </div>
-                        <div className='mt-4 w-full flex justify-center'>
-                            <Button
-                                variant='primary'
-                                onClick={() => {
-                                    exportImage("png");
-                                }}
-                            >
-                                Download as PNG
-                            </Button>
-                        </div>
-                    </div>
+                    </ContentWrapper>
                 </div>
-            </ContentWrapper>
+                <Footer />
+            </div>
         </>
     );
 }
