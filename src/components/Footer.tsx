@@ -9,35 +9,35 @@ export const Footer: React.FC = () => {
                 <p>
                     This project was created using{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://vite.dev'
                     >
                         vite
                     </a>
                     ,{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://react.dev'
                     >
                         react
                     </a>
                     ,{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://tailwindcss.com'
                     >
                         tailwindcss
                     </a>
                     ,{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://www.npmjs.com/package/@uiw/react-color-chrome'
                     >
                         react-color-chrome
                     </a>{" "}
                     and{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://www.npmjs.com/package/react-qrcode-logo?activeTab=readme'
                     >
                         react-qrcode-logo
@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
                 <p>
                     by{" "}
                     <a
-                        className='font-semibold text-neutral-50/80 hover:text-indigo-500/60'
+                        className='font-semibold text-neutral-950 dark:text-neutral-50/80 hover:text-indigo-500/60'
                         href='https://github.com/jnkoriginals'
                     >
                         Jannik Thieme
