@@ -182,7 +182,7 @@ END:VCARD`;
                     <ContentWrapper>
                         <div className='flex items-center gap-4 justify-between w-full pb-6 pt-3 border-b border-neutral-400'>
                             <div className=' flex gap-4 items-center'>
-                                <h1 className='flex text-3xl font-semibold items-center'>
+                                <h1 className='flex text-lg md:text-3xl font-semibold items-center'>
                                     QR Generate
                                 </h1>
                                 <Dropdown
@@ -194,7 +194,7 @@ END:VCARD`;
                                                 "relative select-container px-2 flex w-full h-9 items-center dark:ring-neutral-700 ring-neutral-300 rounded-lg text-neutral-900 dark:text-white shadow-sm ring-1 ring-inset dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-200/70 hover:bg-neutral-300/80 placeholder:text-neutral-400 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:text-sm sm:leading-6"
                                             }
                                         >
-                                            Content type: {contentOption}
+                                            Content: {contentOption}
                                         </Button>
                                     }
                                 >
