@@ -87,6 +87,7 @@ function App() {
     };
 
     const qrRef = useRef<QRCode>(null);
+    const fileUploadRef = useRef<HTMLInputElement>(null);
 
     const exportImage = (format: "png" | "jpeg") => {
         if (qrRef.current === null) {
@@ -172,7 +173,72 @@ END:VCARD`;
         e.preventDefault();
         const vCardString = generateVCard(formData);
         setQrContent(vCardString);
-        console.log(vCardString);
+    };
+
+    const exportConfig = () => {
+        const config = {
+            qrCodeColor,
+            qrBgColor,
+            qrStyle,
+            ecLevel,
+            eyeRadius,
+            quietZone,
+            customEyeColor,
+            useCustomEyeColor,
+            qrContent,
+            imageSrc,
+            imageWidth,
+            imageHeight,
+            useCustomImageHeight,
+            removeQrBehindImage,
+            imagePaddingStyle,
+            imagePadding,
+            imageOpacity,
+            contentOption,
+            formData,
+        };
+        const blob = new Blob([JSON.stringify(config)], {
+            type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "qrConfig.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const importConfig = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const config = JSON.parse(event.target?.result as string);
+                setQrCodeColor(config.qrCodeColor);
+                setQrBgColor(config.qrBgColor);
+                setQrStyle(config.qrStyle);
+                setEcLevel(config.ecLevel);
+                setEyeRadius(config.eyeRadius);
+                setQuietZone(config.quietZone);
+                setCustomEyeColor(config.customEyeColor);
+                setUseCustomEyeColor(config.useCustomEyeColor);
+                setQrContent(config.qrContent);
+                setImageSrc(config.imageSrc);
+                setImageWidth(config.imageWidth);
+                setImageHeight(config.imageHeight);
+                setUseCustomImageHeight(config.useCustomImageHeight);
+                setRemoveQrBehindImage(config.removeQrBehindImage);
+                setImagePaddingStyle(config.imagePaddingStyle);
+                setImagePadding(config.imagePadding);
+                setImageOpacity(config.imageOpacity);
+                setContentOption(config.contentOption);
+                setFormData(config.formData);
+            } catch (error) {
+                console.error("Invalid configuration file", error);
+            }
+        };
+        reader.readAsText(file);
     };
 
     return (
@@ -250,6 +316,7 @@ END:VCARD`;
                                             onChange={(e) => {
                                                 setQrContent(e.target.value);
                                             }}
+                                            value={qrContent}
                                             label='URL'
                                             id='url'
                                             placeholder='Enter URL ...'
@@ -260,6 +327,7 @@ END:VCARD`;
                                             onChange={(e) => {
                                                 setQrContent(e.target.value);
                                             }}
+                                            value={qrContent}
                                             placeholder='Enter text content ...'
                                             label='Text'
                                         />
@@ -270,6 +338,7 @@ END:VCARD`;
                                             onChange={(e) => {
                                                 setQrContent(e.target.value);
                                             }}
+                                            value={qrContent}
                                             type='tel'
                                             label='Phone Number'
                                             id='phone_nbr'
@@ -467,17 +536,37 @@ END:VCARD`;
                                 <Collapsable title='Center Image'>
                                     <div className='flex flex-col gap-4'>
                                         <p>Upload center image</p>
-                                        <FileUpload
-                                            id='fileUpload'
-                                            name='file'
-                                            onChange={handleFileChange}
-                                        />
-                                        {imageError && (
-                                            <div className='mt-4 text-red-500 dark:text-red-400'>
-                                                <strong>Error:</strong>{" "}
-                                                {imageError}
-                                            </div>
-                                        )}
+                                        <span className='flex flex-col gap-2'>
+                                            <FileUpload
+                                                id='fileUpload'
+                                                name='file'
+                                                onChange={handleFileChange}
+                                                ref={fileUploadRef}
+                                            />
+                                            {imageError && (
+                                                <div className='mt-4 text-red-500 dark:text-red-400'>
+                                                    <strong>Error:</strong>{" "}
+                                                    {imageError}
+                                                </div>
+                                            )}
+                                            <p>
+                                                <a
+                                                    className='cursor-pointer dark:text-neutral-50/30 dark:hover:text-neutral-400 hover:text-neutral-800 text-neutral-950/55'
+                                                    onClick={() => {
+                                                        setImageSrc("");
+
+                                                        if (
+                                                            fileUploadRef.current
+                                                        ) {
+                                                            fileUploadRef.current.value =
+                                                                "";
+                                                        }
+                                                    }}
+                                                >
+                                                    Remove image
+                                                </a>
+                                            </p>
+                                        </span>
                                         <p>Image Width</p>
                                         <Slider
                                             min={0}
@@ -698,57 +787,90 @@ END:VCARD`;
                                     </div>
                                 </Collapsable>
                             </div>
-                            <div className='w-full lg:w-5/12'>
-                                <div className='p-4 h-min m-auto w-min bg-white rounded-xl'>
-                                    <QRCode
-                                        id='qrCode'
-                                        ref={qrRef}
-                                        logoImage={imageSrc}
-                                        logoWidth={imageWidth}
-                                        logoHeight={
-                                            useCustomImageHeight
-                                                ? imageHeight
-                                                : imageWidth
-                                        }
-                                        removeQrCodeBehindLogo={
-                                            removeQrBehindImage
-                                        }
-                                        logoPaddingStyle={imagePaddingStyle}
-                                        logoPadding={imagePadding}
-                                        logoOpacity={imageOpacity}
-                                        quietZone={quietZone}
-                                        eyeRadius={eyeRadius}
-                                        ecLevel={ecLevel}
-                                        qrStyle={qrStyle}
-                                        eyeColor={
-                                            useCustomEyeColor
-                                                ? customEyeColor
-                                                : qrCodeColor
-                                        }
-                                        fgColor={qrCodeColor}
-                                        bgColor={qrBgColor}
-                                        value={qrContent}
-                                        size={qrSize}
-                                        style={{ border: "1px solid black" }}
-                                    />
-                                </div>
-                                <div className='mt-4 w-full flex justify-center gap-2'>
-                                    <Button
-                                        variant='primary'
-                                        onClick={() => {
-                                            exportImage("png");
-                                        }}
+                            <div className='w-full lg:w-5/12 flex flex-col'>
+                                <div className='sticky top-10'>
+                                    <div className='p-4 h-min m-auto w-min bg-white rounded-xl'>
+                                        <QRCode
+                                            id='qrCode'
+                                            ref={qrRef}
+                                            logoImage={imageSrc}
+                                            logoWidth={imageWidth}
+                                            logoHeight={
+                                                useCustomImageHeight
+                                                    ? imageHeight
+                                                    : imageWidth
+                                            }
+                                            removeQrCodeBehindLogo={
+                                                removeQrBehindImage
+                                            }
+                                            logoPaddingStyle={imagePaddingStyle}
+                                            logoPadding={imagePadding}
+                                            logoOpacity={imageOpacity}
+                                            quietZone={quietZone}
+                                            eyeRadius={eyeRadius}
+                                            ecLevel={ecLevel}
+                                            qrStyle={qrStyle}
+                                            eyeColor={
+                                                useCustomEyeColor
+                                                    ? customEyeColor
+                                                    : qrCodeColor
+                                            }
+                                            fgColor={qrCodeColor}
+                                            bgColor={qrBgColor}
+                                            value={qrContent}
+                                            size={qrSize}
+                                            style={{
+                                                border: "1px solid black",
+                                            }}
+                                        />
+                                    </div>
+                                    <div className='mt-4 w-full flex justify-center gap-2'>
+                                        <Button
+                                            variant='primary'
+                                            onClick={() => {
+                                                exportImage("png");
+                                            }}
+                                        >
+                                            Download as PNG
+                                        </Button>
+                                        <Button
+                                            variant='primary'
+                                            onClick={() => {
+                                                exportImage("jpeg");
+                                            }}
+                                        >
+                                            Download as JPeg
+                                        </Button>
+                                    </div>
+                                    <div
+                                        className='flex flex-col items-center
+                                     justify-center mt-4'
                                     >
-                                        Download as PNG
-                                    </Button>
-                                    <Button
-                                        variant='primary'
-                                        onClick={() => {
-                                            exportImage("jpeg");
-                                        }}
-                                    >
-                                        Download as JPeg
-                                    </Button>
+                                        <Button
+                                            variant='secondary'
+                                            onClick={() => {
+                                                exportConfig();
+                                            }}
+                                        >
+                                            Export config
+                                        </Button>
+                                        <p className='mt-8 mb-2 text-sm'>
+                                            Load QR Code config
+                                        </p>
+                                        <input
+                                            type='file'
+                                            tabIndex={0}
+                                            accept='application/json'
+                                            className={`file:cursor-pointer text-sm file:border-0 file:bg-neutral-600 file:px-2 file:py-1 file:text-neutral-50 file:rounded-md file:hover:bg-neutral-700 file:focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 file:mr-3`}
+                                            onChange={(e) => {
+                                                if (e.target.files?.[0]) {
+                                                    importConfig(
+                                                        e.target.files[0]
+                                                    );
+                                                }
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

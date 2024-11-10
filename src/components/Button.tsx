@@ -27,7 +27,7 @@ export const Button: React.FC<IButton> = ({
     const variantClasses = {
         primary: "bg-blue-600 hover:bg-blue-700 focus-visible:outline-blue-600",
         secondary:
-            "bg-gray-600 hover:bg-gray-700 focus-visible:outline-gray-600",
+            "bg-neutral-600 hover:bg-neutral-700 focus-visible:outline-neutral-600",
         danger: "bg-red-600 hover:bg-red-700 focus-visible:outline-red-600",
     };
 
