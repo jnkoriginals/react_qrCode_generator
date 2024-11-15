@@ -13,6 +13,7 @@ import { Slider } from "./components/Slider";
 import { FileUpload } from "./components/FileUpload";
 import { ResizableTextBox } from "./components/ResizableTextBox";
 import { Footer } from "./components/Footer";
+import { Helmet } from "react-helmet";
 
 enum QRStyle {
     SQUARES = "squares",
@@ -244,6 +245,16 @@ END:VCARD`;
     return (
         <>
             <div className='flex flex-col min-h-screen'>
+                <Helmet>
+                    <title>
+                        Free QR Code Generator | Create, Customize, and Save QR
+                        Codes Online
+                    </title>
+                    <meta
+                        name='description'
+                        content='Generate and customize QR codes for free with our easy-to-use online QR Code Generator. Change colors, add logos, and download your unique QR codes instantly.'
+                    />
+                </Helmet>
                 <div className='flex flex-1'>
                     <ContentWrapper>
                         <div className='flex items-center gap-4 justify-between w-full pb-6 pt-3 border-b border-neutral-400'>
